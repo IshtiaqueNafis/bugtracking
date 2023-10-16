@@ -19,7 +19,7 @@ export const POST = async (request: NextRequest) => {
 
     // If the validation fails, return a JSON response with a 400 status code
     if (!validation.success) {
-        return NextResponse.json(validation.error.errors, {
+        return NextResponse.json(validation.error.format(), {
             status: 400,
         });
     }
