@@ -1,13 +1,7 @@
 // Import necessary modules and dependencies
-import { NextRequest, NextResponse } from "next/server"; // Next.js server-related modules
-import { z } from "zod"; // Zod for data validation
-import prisma from "@/prisma/client"; // Import the Prisma client for database operations
-
-// Define a schema for validating the request body
-const createIssueSchema = z.object({
-    title: z.string().min(1).max(255), // Define validation rules for the 'title' field
-    description: z.string().min(1), // Define validation rules for the 'description' field
-});
+import {NextRequest, NextResponse} from "next/server"; // Next.js server-related modules
+import prisma from "@/prisma/client";
+import {createIssueSchema} from "@/app/validationSchema"; // Import the Prisma client for database operations
 
 // Define the HTTP POST request handler
 export const POST = async (request: NextRequest) => {
