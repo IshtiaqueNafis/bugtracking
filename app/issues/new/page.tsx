@@ -12,11 +12,13 @@ import {z} from "zod";
 import ErrorMessage from "@/app/components/ErrorMessage";
 import Spinner from "@/app/components/Spinner";
 
+
+
 type IssueForm = z.infer<typeof createIssueSchema>
 // Define an interface to represent the shape of the form data
 
 
-const NewIssue = () => {
+const NewIssuePage = () => {
     const [error, setError] = useState('')
     const [isSubmitting,setIsSubmitting] = useState(false)
     const router = useRouter();
@@ -24,6 +26,20 @@ const NewIssue = () => {
     const {register, control, handleSubmit, formState: {errors}} = useForm<IssueForm>({
         resolver: zodResolver(createIssueSchema)
     });
+
+    const onSubmit =  handleSubmit(async (data) => {
+
+        try {
+            setIsSubmitting(true)
+            await axios.post('/api/issues', data); // save data on database
+            router.push("/issues") // issue is being saved
+        } catch (error) {
+            setIsSubmitting(false)
+            setError("unexpected error occurred")
+        }
+
+
+    })
 
     return (
         <div className={'max-w-xl'}>
@@ -35,19 +51,8 @@ const NewIssue = () => {
                 </Callout.Root>}
 
 
-            <form className={'space-y-3'} onSubmit={handleSubmit(async (data) => {
-
-                try {
-                    setIsSubmitting(true)
-                    await axios.post('/api/issues', data); // save data on database
-                    router.push("/issues") // issue is being saved
-                } catch (error) {
-                    setIsSubmitting(false)
-                    setError("unexpected error occurred")
-                }
-
-
-            })}>
+            <form className={'space-y-3'} onSubmit={onSubmit}
+               >
                 {/* Text input field for the "Title" with a placeholder */}
                 <TextField.Root>
                     <TextField.Input placeholder={"Title"} {...register('title')} />
@@ -73,4 +78,4 @@ const NewIssue = () => {
     );
 };
 
-export default NewIssue;
+export default NewIssuePage;
