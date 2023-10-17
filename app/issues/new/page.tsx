@@ -2,13 +2,14 @@
 import React, {useState} from 'react';
 import SimpleMDE from "react-simplemde-editor"; // Importing the SimpleMDE Markdown editor component
 import "easymde/dist/easymde.min.css"; // Importing the CSS for the Markdown editor
-import {Button, Callout, Text, TextField} from "@radix-ui/themes"; // Importing UI components from Radix UI
+import {Button, Callout, TextField} from "@radix-ui/themes"; // Importing UI components from Radix UI
 import {Controller, useForm} from 'react-hook-form';
 import axios from "axios";
 import {useRouter} from "next/navigation";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {createIssueSchema} from "@/app/validationSchema";
 import {z} from "zod";
+import ErrorMessage from "@/app/components/ErrorMessage";
 
 type IssueForm = z.infer<typeof createIssueSchema>
 // Define an interface to represent the shape of the form data
@@ -47,7 +48,7 @@ const NewIssue = () => {
                 <TextField.Root>
                     <TextField.Input placeholder={"Title"} {...register('title')} />
                 </TextField.Root>
-                {errors.title && <Text color={"red"} as={"p"}>{errors.title.message}</Text>}
+                <ErrorMessage>{errors.title?.message}</ErrorMessage>
 
                 {/* Controller component to handle the "Description" field */}
                 <Controller
@@ -58,7 +59,7 @@ const NewIssue = () => {
                         <SimpleMDE placeholder={"Description"} {...field} />
                     )}
                 />
-                {errors.description && <Text color={"red"} as={"p"}>{errors.description.message}</Text>}
+                 <ErrorMessage>{errors.description?.message}</ErrorMessage>
 
 
                 {/* Button to submit the new issue */}
