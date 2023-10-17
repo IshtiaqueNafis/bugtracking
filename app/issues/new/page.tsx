@@ -10,6 +10,7 @@ import {zodResolver} from "@hookform/resolvers/zod";
 import {createIssueSchema} from "@/app/validationSchema";
 import {z} from "zod";
 import ErrorMessage from "@/app/components/ErrorMessage";
+import Spinner from "@/app/components/Spinner";
 
 type IssueForm = z.infer<typeof createIssueSchema>
 // Define an interface to represent the shape of the form data
@@ -17,6 +18,7 @@ type IssueForm = z.infer<typeof createIssueSchema>
 
 const NewIssue = () => {
     const [error, setError] = useState('')
+    const [isSubmitting,setIsSubmitting] = useState(false)
     const router = useRouter();
     // Initialize form control using useForm from react-hook-form
     const {register, control, handleSubmit, formState: {errors}} = useForm<IssueForm>({
@@ -36,9 +38,11 @@ const NewIssue = () => {
             <form className={'space-y-3'} onSubmit={handleSubmit(async (data) => {
 
                 try {
+                    setIsSubmitting(true)
                     await axios.post('/api/issues', data); // save data on database
                     router.push("/issues") // issue is being saved
                 } catch (error) {
+                    setIsSubmitting(false)
                     setError("unexpected error occurred")
                 }
 
@@ -63,7 +67,7 @@ const NewIssue = () => {
 
 
                 {/* Button to submit the new issue */}
-                <Button>Submit new Issue</Button>
+                <Button disabled={isSubmitting}>Submit new Issue {isSubmitting && <Spinner/>}</Button>
             </form>
         </div>
     );
