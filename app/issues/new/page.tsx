@@ -1,6 +1,5 @@
 'use client'
 import React, {useState} from 'react';
-import SimpleMDE from "react-simplemde-editor"; // Importing the SimpleMDE Markdown editor component
 import "easymde/dist/easymde.min.css"; // Importing the CSS for the Markdown editor
 import {Button, Callout, TextField} from "@radix-ui/themes"; // Importing UI components from Radix UI
 import {Controller, useForm} from 'react-hook-form';
@@ -11,23 +10,25 @@ import {createIssueSchema} from "@/app/validationSchema";
 import {z} from "zod";
 import ErrorMessage from "@/app/components/ErrorMessage";
 import Spinner from "@/app/components/Spinner";
-
+import dynamic from "next/dynamic";
 
 
 type IssueForm = z.infer<typeof createIssueSchema>
 // Define an interface to represent the shape of the form data
 
+const SimpleMDE = dynamic(() => import('react-simplemde-editor'), {ssr: false});
+
 
 const NewIssuePage = () => {
     const [error, setError] = useState('')
-    const [isSubmitting,setIsSubmitting] = useState(false)
+    const [isSubmitting, setIsSubmitting] = useState(false)
     const router = useRouter();
     // Initialize form control using useForm from react-hook-form
     const {register, control, handleSubmit, formState: {errors}} = useForm<IssueForm>({
         resolver: zodResolver(createIssueSchema)
     });
 
-    const onSubmit =  handleSubmit(async (data) => {
+    const onSubmit = handleSubmit(async (data) => {
 
         try {
             setIsSubmitting(true)
@@ -52,7 +53,7 @@ const NewIssuePage = () => {
 
 
             <form className={'space-y-3'} onSubmit={onSubmit}
-               >
+            >
                 {/* Text input field for the "Title" with a placeholder */}
                 <TextField.Root>
                     <TextField.Input placeholder={"Title"} {...register('title')} />
@@ -68,7 +69,7 @@ const NewIssuePage = () => {
                         <SimpleMDE placeholder={"Description"} {...field} />
                     )}
                 />
-                 <ErrorMessage>{errors.description?.message}</ErrorMessage>
+                <ErrorMessage>{errors.description?.message}</ErrorMessage>
 
 
                 {/* Button to submit the new issue */}
