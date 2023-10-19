@@ -19,11 +19,11 @@ type IssueFormData = z.infer<typeof issueSchema>
 
 const SimpleMDE = dynamic(() => import('react-simplemde-editor'), {ssr: false});
 
-interface Props{
-    issue?:Issue
+interface Props {
+    issue?: Issue
 }
 
-const IssueForm = ({issue}:Props) => {
+const IssueForm = ({issue}: Props) => {
     const [error, setError] = useState('')
     const [isSubmitting, setIsSubmitting] = useState(false)
     const router = useRouter();
@@ -36,7 +36,13 @@ const IssueForm = ({issue}:Props) => {
 
         try {
             setIsSubmitting(true)
-            await axios.post('/api/issues', data); // save data on database
+            if (issue) {
+                await axios.patch(`/api/issues/${issue.id}`, data)
+            } else {
+                await axios.post('/api/issues', data); // save data on database
+            }
+
+
             router.push("/issues") // issue is being saved
         } catch (error) {
             setIsSubmitting(false)
@@ -78,7 +84,9 @@ const IssueForm = ({issue}:Props) => {
 
 
                 {/* Button to submit the new issue */}
-                <Button disabled={isSubmitting}>Submit new Issue {isSubmitting && <Spinner/>}</Button>
+                <Button
+                    disabled={isSubmitting}> {issue ? 'Update  and issue' : 'Submit new Issue'} {''} {isSubmitting &&
+                    <Spinner/>}</Button>
             </form>
         </div>
     );
