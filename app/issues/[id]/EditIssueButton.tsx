@@ -1,4 +1,4 @@
-// Import necessary modules and components
+// Import necessary modules and _components
 import React from 'react';
 import { Pencil2Icon } from "@radix-ui/react-icons"; // Import the Pencil2Icon from radix-ui icons
 import Link from "next/link"; // Import the Link component from Next.js

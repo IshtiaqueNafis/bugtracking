@@ -1,5 +1,5 @@
 import React, {PropsWithChildren} from 'react';
-import {Text} from "@radix-ui/themes"; // Importing UI components from Radix UI
+import {Text} from "@radix-ui/themes"; // Importing UI _components from Radix UI
 const ErrorMessage = ({children}: PropsWithChildren) => {
 
     if (!children) return null

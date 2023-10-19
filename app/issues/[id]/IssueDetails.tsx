@@ -1,6 +1,6 @@
-// Import necessary modules and components
+// Import necessary modules and _components
 import React from 'react';
-import { Card, Flex, Heading, Text } from "@radix-ui/themes"; // Import UI components from radix-ui library
+import { Card, Flex, Heading, Text } from "@radix-ui/themes"; // Import UI _components from radix-ui library
 import IssueStatusBadge from "../../components/IssueStatusBadge"; // Import the IssueStatusBadge component
 import Markdown from "react-markdown"; // Import the Markdown rendering component
 import { Issue } from "@prisma/client"; // Import the 'Issue' type from Prisma
