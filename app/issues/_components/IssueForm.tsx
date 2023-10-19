@@ -10,14 +10,13 @@ import {issueSchema} from "@/app/validationSchema";
 import {z} from "zod";
 import ErrorMessage from "@/app/components/ErrorMessage";
 import Spinner from "@/app/components/Spinner";
-import dynamic from "next/dynamic";
 import {Issue} from "@prisma/client";
-
+import SimpleMDE from 'react-simplemde-editor'
 
 type IssueFormData = z.infer<typeof issueSchema>
+
 // Define an interface to represent the shape of the form data
 
-const SimpleMDE = dynamic(() => import('react-simplemde-editor'), {ssr: false});
 
 interface Props {
     issue?: Issue
