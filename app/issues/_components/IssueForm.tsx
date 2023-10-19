@@ -6,7 +6,7 @@ import {Controller, useForm} from 'react-hook-form';
 import axios from "axios";
 import {useRouter} from "next/navigation";
 import {zodResolver} from "@hookform/resolvers/zod";
-import {createIssueSchema} from "@/app/validationSchema";
+import {issueSchema} from "@/app/validationSchema";
 import {z} from "zod";
 import ErrorMessage from "@/app/components/ErrorMessage";
 import Spinner from "@/app/components/Spinner";
@@ -14,7 +14,7 @@ import dynamic from "next/dynamic";
 import {Issue} from "@prisma/client";
 
 
-type IssueFormData = z.infer<typeof createIssueSchema>
+type IssueFormData = z.infer<typeof issueSchema>
 // Define an interface to represent the shape of the form data
 
 const SimpleMDE = dynamic(() => import('react-simplemde-editor'), {ssr: false});
@@ -29,7 +29,7 @@ const IssueForm = ({issue}:Props) => {
     const router = useRouter();
     // Initialize form control using useForm from react-hook-form
     const {register, control, handleSubmit, formState: {errors}} = useForm<IssueFormData>({
-        resolver: zodResolver(createIssueSchema)
+        resolver: zodResolver(issueSchema)
     });
 
     const onSubmit = handleSubmit(async (data) => {

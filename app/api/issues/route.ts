@@ -1,7 +1,7 @@
 // Import necessary modules and dependencies
 import {NextRequest, NextResponse} from "next/server"; // Next.js server-related modules
 import prisma from "@/prisma/client";
-import {createIssueSchema} from "@/app/validationSchema"; // Import the Prisma client for database operations
+import {issueSchema} from "@/app/validationSchema"; // Import the Prisma client for database operations
 
 // Define the HTTP POST request handler
 export const POST = async (request: NextRequest) => {
@@ -9,7 +9,7 @@ export const POST = async (request: NextRequest) => {
     const body = await request.json();
 
     // Validate the request body against the defined schema
-    const validation = createIssueSchema.safeParse(body);
+    const validation = issueSchema.safeParse(body);
 
     // If the validation fails, return a JSON response with a 400 status code
     if (!validation.success) {
