@@ -42,7 +42,7 @@ const IssueForm = ({issue}: Props) => {
             }
 
 
-            router.push("/issues") // issue is being saved
+            router.push("/issues/list") // issue is being saved
             router.refresh()
         } catch (error) {
             setIsSubmitting(false)

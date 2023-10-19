@@ -2,8 +2,8 @@ import React from 'react';
 
 import 'react-loading-skeleton/dist/skeleton.css'; // Import the CSS for the loading skeleton
 import { Table } from "@radix-ui/themes"; // Import a table component from Radix UI
-import IssueActions from "@/app/issues/IssueActions";
-import { Skeleton } from '../components';
+import IssueActions from "@/app/issues/list/IssueActions";
+import { Skeleton } from '../../components';
 
 // Define the LoadingIssuesPage component
 const LoadingIssuesPage = () => {

@@ -3,7 +3,7 @@ import {Table} from "@radix-ui/themes";
 import prisma from "@/prisma/client";
 
 import delay from "delay";
-import IssueActions from "@/app/issues/IssueActions";
+import IssueActions from "@/app/issues/list/IssueActions";
 import {IssueStatusBadge, Link} from "@/app/components";
 
 
@@ -26,7 +26,7 @@ const IssuesPage = async () => {
                     {issues.map(issue => (
                         <Table.Row key={issue.id}>
                             <Table.Cell>
-                                <Link href={`issues/${issue.id}`}>
+                                <Link href={`${issue.id}`}>
                                     {issue.title}
                                 </Link>
 

@@ -14,7 +14,7 @@ const EditIssueButton = ({ issueId }: Props) => {
     return (
         <Button>
             <Pencil2Icon /> {/* Render the Pencil2Icon as an edit icon */}
-            <Link href={`/issues/${issueId}/edit`}>Edit Issue</Link>
+            <Link href={`/issues/edit/${issueId}`}>Edit Issue</Link>
             {/* Create a link to edit the issue with the provided 'issueId' */}
         </Button>
     );
