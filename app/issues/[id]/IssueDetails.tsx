@@ -24,7 +24,7 @@ const IssueDetails = ({ issue }: Props) => {
             </Flex>
 
             {/* Render the issue description as Markdown inside a card */}
-            <Card className={'prose'} mt={"4"}>
+            <Card className={'prose max-w-full'} mt={"4"}>
                 <Markdown>{issue.description}</Markdown> {/* Render the issue description as Markdown */}
             </Card>
         </>
